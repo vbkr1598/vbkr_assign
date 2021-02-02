@@ -1,5 +1,5 @@
 def unique_id = BUILD_TAG+UUID.randomUUID().toString()
-def enable_aws='1'
+def enable_aws='0'
 pipeline
 {
     agent any
