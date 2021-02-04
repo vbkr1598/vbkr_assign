@@ -82,7 +82,10 @@ pipeline
 			}*/
 		stage('[TERRAFORM]Deploy to Tomcat')
 			{
+				steps
+				{
 				sh 'terraform apply -target=module.deploy_tomcat -auto-approve'
+				}
 			}
 	}
 	post 
