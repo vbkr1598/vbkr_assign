@@ -29,7 +29,7 @@ pipeline
 	    {
             steps
 		{
-                sh 'terraform apply -target=module.deploy_dock -auto-approve'
+                sh 'terraform apply -target=module.deploy_dock -auto-approve -no-color'
 		sleep time: 10000, unit: 'MILLISECONDS'
             	}	
 	    }
@@ -63,7 +63,7 @@ pipeline
 			{
 				steps
 				{
-				sh 'terraform apply -target=module.deploy_tomcat -auto-approve'
+				sh 'terraform apply -target=module.deploy_tomcat -auto-approve -no-color'
 				}
 			}
 	}
@@ -72,7 +72,7 @@ pipeline
         	always
 		{
 			echo '[PIPELINE] This will always run once steps are completed.'
-			sh 'terraform destroy -auto-approve'
+			sh 'terraform destroy -auto-approve -no-color'
        		 }
        		success
 		{
