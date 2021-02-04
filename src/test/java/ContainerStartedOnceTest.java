@@ -31,7 +31,8 @@ class ContainerStartedOnceTest {
     @DisplayName("The web site should have the correct title")
     void testProjectWebSiteShouldHaveCorrectTitle() {
         //browser.get("http://192.168.100.79:90/spring-mvc-example/");
-    	browser.get("http://host.docker.internal:9095/spring-mvc-example/");
+    	//browser.get("http://host.docker.internal:9095/spring-mvc-example/");
+        browser.get("http://devopsteamgoa.westindia.cloudapp.azure.com:9095/spring-mvc-example/");
         System.out.println("Title: "+browser.getTitle());
         assertThat(browser.getTitle()).isEqualTo("PSL Assignment Home");
     }
