@@ -29,10 +29,7 @@ pipeline
 	    {
             steps
 		{
-                /*bat """docker kill Deploy2
-                        docker build . -t test2
-                        docker run --rm -d -p 90:8080 --name Deploy2 test2"""*/
-		sh 'terraform apply -target=module.deploy_dock -auto-approve'
+                sh 'terraform apply -target=module.deploy_dock -auto-approve'
 		sleep time: 10000, unit: 'MILLISECONDS'
             	}	
 	    }
@@ -61,25 +58,7 @@ pipeline
 		    {
 			 sh '''mvn test'''
 		    }
-	     }
-	/*stage('AWS Deployment')
-			{
-				steps
-				{
-				echo 'AWS Block initiated'
-				script
-				{
-				sleep time: 1500, unit: 'MILLISECONDS'
-				if(enable_aws == '1')
-				{
-				bat '''cd C:/Users/Vibhor/Desktop/terra
-					terraform apply -auto-approve
-					terraform output'''
-				}
-				else echo 'AWS Deployment Off'
-				}
-				}
-			}*/
+	
 		stage('[TERRAFORM]Deploy to Tomcat')
 			{
 				steps
