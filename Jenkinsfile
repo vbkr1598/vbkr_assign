@@ -1,5 +1,5 @@
 def unique_id = BUILD_TAG+UUID.randomUUID().toString()
-def enable_aws='0'
+//def enable_aws='0'
 pipeline
 {
     agent any
@@ -22,16 +22,17 @@ pipeline
 	    {
             	steps
 		    {
-                	bat 'mvn clean install -DskipTests'
+                	sh 'mvn clean install -DskipTests'
             	    }
 	    }
-        stage('Deploy Docker Tomcat container')
+        stage('[TERRAFORM]Deploy Docker Tomcat container')
 	    {
             steps
 		{
-                bat """docker kill Deploy2
+                /*bat """docker kill Deploy2
                         docker build . -t test2
-                        docker run --rm -d -p 90:8080 --name Deploy2 test2"""
+                        docker run --rm -d -p 90:8080 --name Deploy2 test2"""*/
+		sh 'terraform apply -target=module.deploy_dock -auto-approve'
 		sleep time: 2500, unit: 'MILLISECONDS'
             	}	
 	    }
@@ -42,10 +43,10 @@ pipeline
 			 echo 'Testing for HTTP response'
 		 	script
 			    {
-    				response_code = bat(script: '@curl --write-out %%{http_code} --silent --location --output nul http://localhost:90/spring-mvc-example/pages/version.html', returnStdout: true)
+    				response_code = sh(script: 'curl --write-out %%{http_code} --silent --location --output /dev/null http://localhost:9095/spring-mvc-example/pages/version.html', returnStdout: true)
 			 	if(response_code =='200')
 				    {
-					    def temp=bat(script: '@curl --silent --location http://localhost:90/spring-mvc-example/pages/version.html', returnStdout: true)
+					    def temp=sh(script: 'curl --silent --location http://localhost:9095/spring-mvc-example/pages/version.html', returnStdout: true)
 					    if(uuid_verify(temp,unique_id)) echo '[SUCCESS] Latest version deployed!'
 					    else echo '[ERROR] Old version found!'
 			 	//echo '[SUCCESS] Test Passed!'
@@ -58,10 +59,10 @@ pipeline
 	    {
 		 steps
 		    {
-			 bat '''mvn test'''
+			 sh '''mvn test'''
 		    }
 	     }
-	stage('AWS Deployment')
+	/*stage('AWS Deployment')
 			{
 				steps
 				{
@@ -78,6 +79,10 @@ pipeline
 				else echo 'AWS Deployment Off'
 				}
 				}
+			}*/
+		stage('[TERRAFORM]Deploy to Tomcat')
+			{
+				sh 'terraform apply -target=module.deploy_tomcat -auto-approve'
 			}
 	}
 	post 
@@ -85,6 +90,7 @@ pipeline
         	always
 		{
 			echo '[PIPELINE] This will always run once steps are completed.'
+			sh 'terraform destroy -auto-approve'
        		 }
        		success
 		{
@@ -111,7 +117,7 @@ pipeline
 	}*/
 def uuid_write(String unique_id)
 {//def unique_id = UUID.randomUUID().toString()
-	def file = new File('C:/Users/Vibhor/.jenkins/workspace/Assign2_Source/WebContent/WEB-INF/pages/version.html')
+	def file = new File('/var/lib/jenkins/workspace/vib_assign/WebContent/WEB-INF/pages/version.html')
 //Parse it with XmlSlurper
 	def xml = new XmlSlurper().parse(file)
 //Update the node value using replaceBody
