@@ -11,7 +11,6 @@
     <properties>
         
         <junit.jupiter.version>5.4.0</junit.jupiter.version>
-        <log4j.version>2.11.2</log4j.version>
         <selenium.version>3.141.59</selenium.version>
         <testcontainers.version>1.10.6</testcontainers.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,18 +47,7 @@
 			<version>1.2</version>
 		</dependency>
 
-		<dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>${log4j.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j.version}</version>
-            <scope>test</scope>
-        </dependency>
+		
 
         <!-- JUnit 5 -->
         <dependency>
