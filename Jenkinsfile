@@ -33,7 +33,7 @@ pipeline
                         docker build . -t test2
                         docker run --rm -d -p 90:8080 --name Deploy2 test2"""*/
 		sh 'terraform apply -target=module.deploy_dock -auto-approve'
-		sleep time: 2500, unit: 'MILLISECONDS'
+		sleep time: 15500, unit: 'MILLISECONDS'
             	}	
 	    }
 	 stage ('[TEST]Deployment')
@@ -97,7 +97,7 @@ pipeline
        		 }
        		success
 		{
-            		echo '[PIPELINE] This will run only if successful\n Access the App from http://localhost:90/spring-mvc-example/'
+            		echo '[PIPELINE] This will run only if successful\n Access the App from http://devopsteamgoa.westindia.cloudapp.azure.com:8081/spring-mvc-example/'
         	}
         	failure
 		{
