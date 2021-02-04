@@ -30,7 +30,7 @@ pipeline
             steps
 		{
                 sh 'terraform apply -target=module.deploy_dock -auto-approve -no-color'
-		sleep time: 10000, unit: 'MILLISECONDS'
+		sleep time: 15000, unit: 'MILLISECONDS'
             	}	
 	    }
 	 stage ('[TEST]Deployment')
