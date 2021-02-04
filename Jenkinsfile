@@ -43,7 +43,7 @@ pipeline
 			 echo 'Testing for HTTP response'
 		 	script
 			    {
-    				response_code = sh(script: 'curl --write-out %%{http_code} --silent --location --output /dev/null http://localhost:9095/spring-mvc-example/pages/version.html', returnStdout: true)
+    				response_code = sh(script: 'curl --write-out %{http_code} --silent --location --output /dev/null http://localhost:9095/spring-mvc-example/pages/version.html', returnStdout: true)
 			 	if(response_code =='200')
 				    {
 					    def temp=sh(script: 'curl --silent --location http://localhost:9095/spring-mvc-example/pages/version.html', returnStdout: true)
