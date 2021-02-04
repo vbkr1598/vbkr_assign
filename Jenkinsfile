@@ -58,7 +58,7 @@ pipeline
 		    {
 			 sh '''mvn test'''
 		    }
-	
+	    }
 		stage('[TERRAFORM]Deploy to Tomcat')
 			{
 				steps
