@@ -22,7 +22,7 @@ pipeline
 	    {
             	steps
 		    {
-                	sh 'mvn clean install -DskipTests'
+                	sh 'mvn clean install -DskipTests -B'
             	    }
 	    }
         stage('[TERRAFORM]Deploy Docker Tomcat container')
@@ -56,7 +56,7 @@ pipeline
 	    {
 		 steps
 		    {
-			 sh '''mvn test'''
+			 sh '''mvn test -B'''
 		    }
 	    }
 		stage('[TERRAFORM]Deploy to Tomcat')
