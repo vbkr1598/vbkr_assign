@@ -12,7 +12,7 @@ provider "docker" {
 
 resource "docker_container" "tomcat" {
   name  = "tom_test"
-  image = docker_image.tomcat.latest
+  image = "vbkr1598/tomcat:fix1"//docker_image.tomcat.latest
   must_run = true
   ports {
       internal = 8080
@@ -32,10 +32,10 @@ resource "docker_container" "tomcat" {
 }
 
 # Find the latest Ubuntu precise image.
-resource "docker_image" "tomcat" {
+/*resource "docker_image" "tomcat" {
   name = "vbkr1598/tomcat:fix1"
-  /*build {
+  build {
       path = "./"/tmp/apache-tomcat-9.0.41/webapps/ROOT
      // dockerfile = "" /var/lib/jenkins/workspace
-  }*/
-}
+  }
+}*/
